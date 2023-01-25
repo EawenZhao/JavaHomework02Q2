@@ -3,12 +3,17 @@ public class MDTableBuilder implements TableBuilder {
 
     @Override
     public void appendHead(String[] items) {
+        int columnCounter = 0;
         MDString.append("|");
         for (String string : items) {
             MDString.append(string).append("|");
+            columnCounter++;
         }
         MDString.append("\n");
-        MDString.append("|--|--|--|\n");
+        for (int i = 0; i < columnCounter; i++) {
+            MDString.append("|--");
+        }
+        MDString.append("|\n");
     }
 
     @Override
