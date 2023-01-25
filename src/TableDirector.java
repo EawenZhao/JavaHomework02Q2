@@ -35,6 +35,7 @@ public class TableDirector {
                 "1. HTML\n" +
                 "2. MarkDown\n");
         Scanner scanner = new Scanner(System.in);
+
         switch (scanner.nextLine()) {
             case "1": {
                 HTMLTableBuilder htmlTableBuilder = new HTMLTableBuilder();
