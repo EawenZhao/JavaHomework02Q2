@@ -5,18 +5,18 @@ public class HTMLTableBuilder implements TableBuilder {
     public void appendHead(String[] items) {
         HTMLString.append("<tr>");
         for (String string : items) {
-            HTMLString.append("<th>").append(string).append("</th>").append("\n");
+            HTMLString.append("<th>").append(string).append("</th>\n");
         }
-        HTMLString.append("</tr>");
+        HTMLString.append("</tr>\n");
     }
 
     @Override
     public void appendRow(String[] items) {
         HTMLString.append("<tr>");
         for (String string : items) {
-            HTMLString.append("<td>").append(string).append("</td>").append("\n");
+            HTMLString.append("<td>").append(string).append("</td>\n");
         }
-        HTMLString.append("</tr>");
+        HTMLString.append("</tr>\n");
     }
 
     @Override

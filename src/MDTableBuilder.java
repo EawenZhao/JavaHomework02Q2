@@ -8,7 +8,7 @@ public class MDTableBuilder implements TableBuilder {
             MDString.append(string).append("|");
         }
         MDString.append("\n");
-        MDString.append("|--|--|--|");
+        MDString.append("|--|--|--|\n");
     }
 
     @Override
