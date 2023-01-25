@@ -3,9 +3,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class TableDirector {
+public class TableDirector<T extends TableBuilder> {
     private String tableHeader;
     private StringBuilder tableContents = new StringBuilder();
+    T type;
+
+    public TableDirector(Class<T> tableClass) {
+        try {
+            type = tableClass.newInstance();
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public void dataScanner() {
@@ -31,56 +42,12 @@ public class TableDirector {
     public void tableMaker() {
         String[] headerItems = tableHeader.split(",");
         String[] rows = tableContents.toString().split("\n");
-        System.out.println("Which kind of forms would you like to make?\n" +
-                "1. HTML\n" +
-                "2. MarkDown\n");
-        Scanner scanner = new Scanner(System.in);
 
-        switch (scanner.nextLine()) {
-            case "1": {
-                HTMLTableBuilder htmlTableBuilder = new HTMLTableBuilder();
-
-                htmlTableBuilder.appendHead(headerItems);
-                for (String row : rows) {
-                    htmlTableBuilder.appendRow(row.split(","));
-                }
-
-                try {
-                    File htmlFile = new File("../new.html");
-                    htmlFile.createNewFile();
-                    FileWriter writer = new FileWriter(htmlFile);
-                    writer.write(htmlTableBuilder.HTMLString.toString());
-                    writer.flush();
-                    writer.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-                break;
-            }
-            case "2": {
-                MDTableBuilder mdTableBuilder = new MDTableBuilder();
-
-                mdTableBuilder.appendHead(headerItems);
-                for (String row : rows) {
-                    mdTableBuilder.appendRow(row.split(","));
-                }
-
-                try {
-                    File MDFile = new File("../new.md");
-                    MDFile.createNewFile();
-                    FileWriter writer = new FileWriter(MDFile);
-                    writer.write(mdTableBuilder.MDString.toString());
-                    writer.flush();
-                    writer.close();
-                }catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-                break;
-            }
-            default:
+        type.appendHead(headerItems);
+        for (String row : rows) {
+            type.appendRow(row.split(","));
         }
 
+        System.out.println(type.getTable());
     }
 }

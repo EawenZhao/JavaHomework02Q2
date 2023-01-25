@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        TableDirector director = new TableDirector();
-        director.dataScanner();
-        director.tableMaker();
+        TableDirector<HTMLTableBuilder> htmlTableBuilderTableDirector = new TableDirector<>(HTMLTableBuilder.class);
+        htmlTableBuilderTableDirector.dataScanner();
+        htmlTableBuilderTableDirector.tableMaker();
     }
 }
