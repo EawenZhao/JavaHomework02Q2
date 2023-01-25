@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class TableDirector {
@@ -35,20 +38,44 @@ public class TableDirector {
         switch (scanner.nextLine()) {
             case "1": {
                 HTMLTableBuilder htmlTableBuilder = new HTMLTableBuilder();
+
                 htmlTableBuilder.appendHead(headerItems);
                 for (String row : rows) {
                     htmlTableBuilder.appendRow(row.split(","));
                 }
-                System.out.println(htmlTableBuilder.getTable());
+
+                try {
+                    File htmlFile = new File("../new.html");
+                    htmlFile.createNewFile();
+                    FileWriter writer = new FileWriter(htmlFile);
+                    writer.write(htmlTableBuilder.HTMLString.toString());
+                    writer.flush();
+                    writer.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 break;
             }
             case "2": {
                 MDTableBuilder mdTableBuilder = new MDTableBuilder();
+
                 mdTableBuilder.appendHead(headerItems);
                 for (String row : rows) {
                     mdTableBuilder.appendRow(row.split(","));
                 }
-                System.out.println(mdTableBuilder.getTable());
+
+                try {
+                    File MDFile = new File("../new.md");
+                    MDFile.createNewFile();
+                    FileWriter writer = new FileWriter(MDFile);
+                    writer.write(mdTableBuilder.MDString.toString());
+                    writer.flush();
+                    writer.close();
+                }catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
                 break;
             }
             default:
