@@ -18,7 +18,6 @@ public class TableDirector<T extends TableBuilder> {
         }
     }
 
-
     public void dataScanner() {
         System.out.println("Please enter the Header (EXIT to finish):");
         Scanner scanner = new Scanner(System.in);
