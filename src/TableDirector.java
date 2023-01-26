@@ -3,16 +3,10 @@ import java.util.Scanner;
 public class TableDirector<T extends TableBuilder> {
     private String tableHeader;
     private StringBuilder tableContents = new StringBuilder();
-    T type;
+    private T builder;
 
-    public TableDirector(Class<T> tableClass) {
-        try {
-            type = tableClass.newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+    public TableDirector(T builder) {
+        this.builder = builder;
     }
 
     public void dataScanner() {
@@ -39,11 +33,11 @@ public class TableDirector<T extends TableBuilder> {
         String[] headerItems = tableHeader.split(",");
         String[] rows = tableContents.toString().split("\n");
 
-        type.appendHead(headerItems);
+        builder.appendHead(headerItems);
         for (String row : rows) {
-            type.appendRow(row.split(","));
+            builder.appendRow(row.split(","));
         }
 
-        System.out.println(type.getTable());
+        System.out.println(builder.getTable());
     }
 }
